@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
@@ -29,3 +30,11 @@ class AccountBookUpdateView(UpdateView):
 class AccountBookDeleteView(DeleteView):
     model = AccountBook
     success_url = reverse_lazy('accountbook:accountbook_list')
+
+
+def dashboard_accountbook(request):
+    accountbook_list = AccountBook.objects.all()      # all() : 전체, filter() : 필터링, get() : 하나 가져옴
+    context = {
+        'accountbook_list': accountbook_list,
+    }
+    return render(request, 'accountbook/accountbook_dashboard.html', context=context)
